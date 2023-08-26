@@ -1,8 +1,8 @@
 package com.ciarabelle.starwars.data
 
-data class FilmList(
+data class VehicleList(
     val count: Int,
-    val next: Any,
+    val next: String,
     val previous: Any,
-    val results: List<Film>
+    val results: List<Vehicle>
 )

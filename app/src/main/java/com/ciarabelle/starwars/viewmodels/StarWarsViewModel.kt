@@ -43,15 +43,16 @@ class StarWarsViewModel @Inject constructor(
     var vehicleListState by mutableStateOf(null as VehicleList?)
         private set
 
-    fun getResources() {
-        viewModelScope.launch {
-            resourcesState = repository.getResources()
-        }
-    }
-
     fun getCharacterList() {
         viewModelScope.launch {
-            characterListState = repository.getCharacterList()
+            characterListState?.let { list ->
+                list.next?.let { nextUrl ->
+                    val characterList = repository.getCharacterList(nextUrl)
+                    characterListState = characterList
+                }
+            } ?: run {
+                characterListState = repository.getCharacterList()
+            }
         }
     }
 }

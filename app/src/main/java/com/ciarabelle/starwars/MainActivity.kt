@@ -3,7 +3,6 @@ package com.ciarabelle.starwars
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -42,12 +41,9 @@ class MainActivity : ComponentActivity() {
                             ResourcesScreen(onAction = navController::navigate)
                         }
                         composable(CHARACTERS) {
-                            LaunchedEffect(true) {
-                                viewModel.getCharacterList()
-                            }
                             CharactersScreen(
                                 list = viewModel.characterListState?.results,
-                                onNavigate = navController::navigateToRoot,
+                                onGetList = viewModel::getCharacterList,
                             )
                         }
                     }

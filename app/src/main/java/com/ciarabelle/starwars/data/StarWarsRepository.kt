@@ -10,8 +10,18 @@ class StarWarsRepository @Inject constructor(
         return service.getResources().body()
     }
 
-    suspend fun getCharacterList(): CharacterList? {
-        return service.getCharacterList().body()
+    suspend fun getCharacterList(nextUrl: String? = null): CharacterList? {
+        val page = parsePageFromUrl(nextUrl)
+        println("aaa----page-- $page")
+        return service.getCharacterList(page).body()
+    }
+
+    private fun parsePageFromUrl(nextUrl: String?): String? {
+        val match = "page="
+        return nextUrl?.let {
+            val index = it.indexOf(match) + match.length
+            it.substring(IntRange(index, index))
+        }
     }
 
     suspend fun getFilmList(): FilmList? {

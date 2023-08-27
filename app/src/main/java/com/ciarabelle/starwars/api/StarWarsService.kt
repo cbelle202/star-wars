@@ -9,13 +9,14 @@ import com.ciarabelle.starwars.data.StarshipList
 import com.ciarabelle.starwars.data.VehicleList
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface StarWarsService {
     @GET("/api")
     suspend fun getResources(): Response<Resources>
 
     @GET("/api/people")
-    suspend fun getCharacterList(): Response<CharacterList>
+    suspend fun getCharacterList(@Query("page") page: String? = null): Response<CharacterList>
 
     @GET("/api/films")
     suspend fun getFilmList(): Response<FilmList>

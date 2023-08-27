@@ -1,5 +1,12 @@
 package com.ciarabelle.starwars.data
 
+data class VehicleList(
+    val count: Int,
+    val next: String,
+    val previous: Any,
+    val results: List<Vehicle>
+)
+
 data class Vehicle(
     val cargo_capacity: String,
     val consumables: String,

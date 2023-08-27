@@ -14,14 +14,14 @@ import com.ciarabelle.starwars.data.ResourceList
 import com.ciarabelle.starwars.utils.getTitle
 
 @Composable
-fun CharacterListScreen(
+fun ResourceListScreen(
     modifier: Modifier = Modifier,
     list: ResourceList?,
     onGetList: () -> Unit,
     onResourceDetail: (Any) -> Unit,
 ) {
     Column {
-        Text("List", color = Color.White)
+        Text("List---------- >_>", color = Color.White)
         LazyColumnComponent(modifier = modifier) {
             list?.results?.let {
                 items(it) { item ->

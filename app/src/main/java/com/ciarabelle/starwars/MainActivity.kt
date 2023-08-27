@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ciarabelle.starwars.navigation.CHARACTER_LIST
-import com.ciarabelle.starwars.navigation.CHARACTER_DETAILS
+import com.ciarabelle.starwars.navigation.RESOURCE_LIST
+import com.ciarabelle.starwars.navigation.RESOURCE_DETAILS
 import com.ciarabelle.starwars.navigation.ROOT
-import com.ciarabelle.starwars.screens.CharacterListScreen
+import com.ciarabelle.starwars.screens.ResourceListScreen
 import com.ciarabelle.starwars.screens.DetailsScreen
-import com.ciarabelle.starwars.screens.ResourcesScreen
+import com.ciarabelle.starwars.screens.HomeScreen
 import com.ciarabelle.starwars.ui.theme.StarWarsTheme
 import com.ciarabelle.starwars.viewmodels.StarWarsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,21 +36,27 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val viewModel = ViewModelProvider(this)[StarWarsViewModel::class.java]
                     val navController = rememberNavController()
+
                     NavHost(navController = navController, startDestination = ROOT) {
                         composable(ROOT) {
-                            ResourcesScreen(onAction = navController::navigate)
-                        }
-                        composable(CHARACTER_LIST) {
-                            CharacterListScreen(
-                                list = viewModel.characterListState,
-                                onGetList = viewModel::getCharacterList,
-                                onResourceDetail = {
-                                    viewModel.setResourceDetails(it)
-                                    navController.navigate(CHARACTER_DETAILS)
+                            HomeScreen(
+                                onAction = {
+                                    viewModel.setResourceList(it)
+                                    navController.navigate(RESOURCE_LIST)
                                 },
                             )
                         }
-                        composable(CHARACTER_DETAILS) {
+                        composable(RESOURCE_LIST) {
+                            ResourceListScreen(
+                                list = viewModel.resourceListState,
+                                onGetList = viewModel::getResourceList,
+                                onResourceDetail = {
+                                    viewModel.setResourceDetails(it)
+                                    navController.navigate(RESOURCE_DETAILS)
+                                },
+                            )
+                        }
+                        composable(RESOURCE_DETAILS) {
                             DetailsScreen(any = viewModel.resourceDetailsState)
                         }
                     }
@@ -64,6 +70,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     StarWarsTheme {
-        ResourcesScreen(onAction = {})
+        HomeScreen(onAction = {})
     }
 }

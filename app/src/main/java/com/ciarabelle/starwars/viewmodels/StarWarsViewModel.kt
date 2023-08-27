@@ -48,4 +48,10 @@ class StarWarsViewModel @Inject constructor(
             resourcesState = repository.getResources()
         }
     }
+
+    fun getCharacterList() {
+        viewModelScope.launch {
+            characterListState = repository.getCharacterList()
+        }
+    }
 }

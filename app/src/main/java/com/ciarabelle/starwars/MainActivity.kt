@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
@@ -41,7 +42,13 @@ class MainActivity : ComponentActivity() {
                             ResourcesScreen(onAction = navController::navigate)
                         }
                         composable(CHARACTERS) {
-                            CharactersScreen(onNavigate = navController::navigateToRoot)
+                            LaunchedEffect(true) {
+                                viewModel.getCharacterList()
+                            }
+                            CharactersScreen(
+                                list = viewModel.characterListState?.results,
+                                onNavigate = navController::navigateToRoot,
+                            )
                         }
                     }
                 }

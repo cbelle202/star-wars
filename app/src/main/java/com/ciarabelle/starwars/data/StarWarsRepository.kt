@@ -9,4 +9,12 @@ class StarWarsRepository @Inject constructor(
     suspend fun getResources(): Resources? {
         return service.getResources().body()
     }
+
+    suspend fun getCharacterList(): CharacterList? {
+        return service.getCharacterList().body()
+    }
+
+    suspend fun getFilmList(): FilmList? {
+        return service.getFilmList().body()
+    }
 }

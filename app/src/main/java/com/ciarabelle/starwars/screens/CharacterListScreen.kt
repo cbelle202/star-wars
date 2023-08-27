@@ -27,7 +27,7 @@ fun CharacterListScreen(
                 items(it) { char ->
                     ListItemComponent(
                         text = char.name ?: "No value",
-                        onAction = {onCharacterDetail(char)},
+                        onAction = { onCharacterDetail(char) },
                     )
                 }
             }

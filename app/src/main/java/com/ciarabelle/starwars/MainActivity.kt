@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
@@ -18,7 +17,7 @@ import com.ciarabelle.starwars.navigation.CHARACTER_LIST
 import com.ciarabelle.starwars.navigation.CHARACTER_DETAILS
 import com.ciarabelle.starwars.navigation.ROOT
 import com.ciarabelle.starwars.screens.CharacterListScreen
-import com.ciarabelle.starwars.screens.CharacterDetailsScreen
+import com.ciarabelle.starwars.screens.DetailsScreen
 import com.ciarabelle.starwars.screens.ResourcesScreen
 import com.ciarabelle.starwars.ui.theme.StarWarsTheme
 import com.ciarabelle.starwars.viewmodels.StarWarsViewModel
@@ -52,9 +51,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(CHARACTER_DETAILS) {
-                            CharacterDetailsScreen(
-                                character = viewModel.characterState,
-                            )
+                            DetailsScreen(any = viewModel.characterState)
                         }
                     }
                 }

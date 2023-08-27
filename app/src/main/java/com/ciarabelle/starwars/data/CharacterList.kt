@@ -4,6 +4,6 @@ data class CharacterList(
     val count: Int?,
     val next: String?,
     val previous: String?,
-    val results: List<Character>? = listOf(),
-    val loading: Boolean = false,
-)
+    override val results: List<Character>?,
+    override val loading: Boolean = false,
+) : ResourceList()

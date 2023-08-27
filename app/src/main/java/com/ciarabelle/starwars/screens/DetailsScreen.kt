@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import com.ciarabelle.starwars.components.TitleComponent
 import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.Film
 import kotlin.reflect.KProperty1
@@ -29,7 +30,7 @@ fun DetailsScreen(any: Any?) {
 
 @Composable
 private fun PropertiesDisplay(any: Any, memberProperties: Collection<KProperty1<Any, *>>) {
-    Title(any = any)
+    TitleComponent(any = any)
     for (prop in memberProperties) {
         if (prop.name == "name" || prop.name == "title") continue
         println("${prop.name} = ${prop.get(any)}")
@@ -40,20 +41,5 @@ private fun PropertiesDisplay(any: Any, memberProperties: Collection<KProperty1<
             )
             Text(text = prop.get(any).toString())
         }
-    }
-}
-
-@Composable
-private fun Title(any: Any) {
-    val title = when (any) {
-        is Character -> any.name
-        is Film -> any.title
-        else -> null
-    }
-    title?.let {
-        Text(
-            text = title,
-            fontSize = 22.sp,
-        )
     }
 }

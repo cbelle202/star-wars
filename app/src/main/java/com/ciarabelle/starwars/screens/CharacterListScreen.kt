@@ -10,24 +10,24 @@ import androidx.compose.ui.graphics.Color
 import com.ciarabelle.starwars.components.LazyColumnComponent
 import com.ciarabelle.starwars.components.ListItemComponent
 import com.ciarabelle.starwars.components.LoadingIndicatorComponent
-import com.ciarabelle.starwars.data.Character
-import com.ciarabelle.starwars.data.CharacterList
+import com.ciarabelle.starwars.data.ResourceList
+import com.ciarabelle.starwars.utils.getTitle
 
 @Composable
 fun CharacterListScreen(
     modifier: Modifier = Modifier,
-    list: CharacterList?,
+    list: ResourceList?,
     onGetList: () -> Unit,
-    onCharacterDetail: (Character) -> Unit,
+    onResourceDetail: (Any) -> Unit,
 ) {
     Column {
-        Text("Character List", color = Color.White)
+        Text("List", color = Color.White)
         LazyColumnComponent(modifier = modifier) {
             list?.results?.let {
-                items(it) { char ->
+                items(it) { item ->
                     ListItemComponent(
-                        text = char.name ?: "No value",
-                        onAction = { onCharacterDetail(char) },
+                        text = getTitle(item) ?: "No value",
+                        onAction = { onResourceDetail(item) },
                     )
                 }
             }

@@ -3,7 +3,6 @@ package com.ciarabelle.starwars.api
 import com.ciarabelle.starwars.data.CharacterList
 import com.ciarabelle.starwars.data.FilmList
 import com.ciarabelle.starwars.data.PlanetList
-import com.ciarabelle.starwars.data.Resources
 import com.ciarabelle.starwars.data.SpeciesList
 import com.ciarabelle.starwars.data.StarshipList
 import com.ciarabelle.starwars.data.VehicleList
@@ -12,8 +11,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface StarWarsService {
-    @GET("/api")
-    suspend fun getResources(): Response<Resources>
 
     @GET("/api/people")
     suspend fun getCharacterList(@Query("page") page: String? = null): Response<CharacterList>

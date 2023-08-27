@@ -44,14 +44,14 @@ class MainActivity : ComponentActivity() {
                             CharacterListScreen(
                                 list = viewModel.characterListState,
                                 onGetList = viewModel::getCharacterList,
-                                onCharacterDetail = {
-                                    viewModel.setCharacter(it)
+                                onResourceDetail = {
+                                    viewModel.setResourceDetails(it)
                                     navController.navigate(CHARACTER_DETAILS)
                                 },
                             )
                         }
                         composable(CHARACTER_DETAILS) {
-                            DetailsScreen(any = viewModel.characterState)
+                            DetailsScreen(any = viewModel.resourceDetailsState)
                         }
                     }
                 }

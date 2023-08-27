@@ -22,7 +22,7 @@ class StarWarsViewModel @Inject constructor(
     var characterListState by mutableStateOf(null as CharacterList?)
         private set
 
-    var characterState by mutableStateOf(null as Character?)
+    var resourceDetailsState by mutableStateOf(null as Any?)
         private set
 
     var filmListState by mutableStateOf(null as FilmList?)
@@ -42,8 +42,8 @@ class StarWarsViewModel @Inject constructor(
         }
     }
 
-    fun setCharacter(character: Character?) {
-        characterState = character
+    fun setResourceDetails(any: Any?) {
+        resourceDetailsState = any
     }
 
     private suspend fun getNextPage(

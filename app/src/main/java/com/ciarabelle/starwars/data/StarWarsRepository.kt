@@ -6,14 +6,19 @@ import javax.inject.Inject
 class StarWarsRepository @Inject constructor(
     private val service: StarWarsService,
 ) {
-    suspend fun getResources(): Resources? {
-        return service.getResources().body()
-    }
+    private var charMap = mutableMapOf<String, Character>()
+    private var filmMap = mutableMapOf<String, Film>()
 
     suspend fun getCharacterList(nextUrl: String? = null): CharacterList? {
         val page = parsePageFromUrl(nextUrl)
         println("aaa----page-- $page")
-        return service.getCharacterList(page).body()
+        val characterList = service.getCharacterList(page).body()
+        characterList?.results?.let { list ->
+            list.forEach { char ->
+                char.url?.let { charMap[it] = char }
+            }
+        }
+        return characterList
     }
 
     private fun parsePageFromUrl(nextUrl: String?): String? {

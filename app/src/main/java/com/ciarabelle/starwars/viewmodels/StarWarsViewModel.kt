@@ -7,13 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.CharacterList
+import com.ciarabelle.starwars.data.Film
 import com.ciarabelle.starwars.data.FilmList
-import com.ciarabelle.starwars.data.PlanetList
-import com.ciarabelle.starwars.data.Resources
-import com.ciarabelle.starwars.data.SpeciesList
 import com.ciarabelle.starwars.data.StarWarsRepository
-import com.ciarabelle.starwars.data.StarshipList
-import com.ciarabelle.starwars.data.VehicleList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,22 +25,10 @@ class StarWarsViewModel @Inject constructor(
     var characterState by mutableStateOf(null as Character?)
         private set
 
-    var resourcesState by mutableStateOf(null as Resources?)
-        private set
-
     var filmListState by mutableStateOf(null as FilmList?)
         private set
 
-    var planetListState by mutableStateOf(null as PlanetList?)
-        private set
-
-    var speciesListState by mutableStateOf(null as SpeciesList?)
-        private set
-
-    var starshipListState by mutableStateOf(null as StarshipList?)
-        private set
-
-    var vehicleListState by mutableStateOf(null as VehicleList?)
+    var filmState by mutableStateOf(null as Film?)
         private set
 
     fun getCharacterList() {

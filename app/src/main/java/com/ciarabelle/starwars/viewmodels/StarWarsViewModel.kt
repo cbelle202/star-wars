@@ -3,6 +3,8 @@ package com.ciarabelle.starwars.viewmodels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ciarabelle.starwars.data.CharacterList
@@ -44,9 +46,11 @@ class StarWarsViewModel @Inject constructor(
         private set
 
     fun getCharacterList() {
+        println("aaa----charlist---$characterListState")
         viewModelScope.launch {
             characterListState?.let { list ->
                 list.next?.let { nextUrl ->
+                    if (nextUrl.toLowerCase(Locale.current) == "null") return@launch
                     val characterList = repository.getCharacterList(nextUrl)
                     characterListState = characterList
                 }

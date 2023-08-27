@@ -1,29 +1,34 @@
 package com.ciarabelle.starwars.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.ciarabelle.starwars.components.LazyColumnComponent
 import com.ciarabelle.starwars.components.ListItemComponent
 import com.ciarabelle.starwars.components.LoadingIndicatorComponent
 import com.ciarabelle.starwars.data.CharacterList
 
 @Composable
-fun CharactersScreen(
+fun CharacterListScreen(
     modifier: Modifier = Modifier,
     list: CharacterList?,
     onGetList: () -> Unit,
 ) {
-    LazyColumnComponent(modifier = modifier) {
-        list?.results?.let {
-            items(it) { char ->
-                ListItemComponent(text = char.name ?: "No value", onAction = {})
+    Column {
+        Text("Character List", color = Color.White)
+        LazyColumnComponent(modifier = modifier) {
+            list?.results?.let {
+                items(it) { char ->
+                    ListItemComponent(text = char.name ?: "No value", onAction = {})
+                }
             }
-        }
-        item {
-            LaunchedEffect(true) { onGetList() }
+            item {
+                LaunchedEffect(true) { onGetList() }
+            }
         }
     }
 

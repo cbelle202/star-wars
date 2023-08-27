@@ -8,14 +8,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ciarabelle.starwars.navigation.CHARACTERS
+import com.ciarabelle.starwars.navigation.CHARACTER_LIST
+import com.ciarabelle.starwars.navigation.CHARACTER_DETAILS
 import com.ciarabelle.starwars.navigation.ROOT
-import com.ciarabelle.starwars.screens.CharactersScreen
+import com.ciarabelle.starwars.screens.CharacterListScreen
+import com.ciarabelle.starwars.screens.CharacterDetailsScreen
 import com.ciarabelle.starwars.screens.ResourcesScreen
 import com.ciarabelle.starwars.ui.theme.StarWarsTheme
 import com.ciarabelle.starwars.viewmodels.StarWarsViewModel
@@ -30,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                    color = Color.Black,
                 ) {
                     val viewModel = ViewModelProvider(this)[StarWarsViewModel::class.java]
                     val navController = rememberNavController()
@@ -38,11 +41,14 @@ class MainActivity : ComponentActivity() {
                         composable(ROOT) {
                             ResourcesScreen(onAction = navController::navigate)
                         }
-                        composable(CHARACTERS) {
-                            CharactersScreen(
+                        composable(CHARACTER_LIST) {
+                            CharacterListScreen(
                                 list = viewModel.characterListState,
                                 onGetList = viewModel::getCharacterList,
                             )
+                        }
+                        composable(CHARACTER_DETAILS) {
+                            CharacterDetailsScreen()
                         }
                     }
                 }

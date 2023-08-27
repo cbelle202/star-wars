@@ -16,8 +16,7 @@ fun LazyColumnComponent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .background(Color.Yellow.copy(alpha = .6f)),
+            .background(Color.Cyan.copy(alpha = .6f)),
         content = content,
     )
 }

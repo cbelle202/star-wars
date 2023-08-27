@@ -26,6 +26,9 @@ class StarWarsViewModel @Inject constructor(
     var characterListState by mutableStateOf(null as CharacterList?)
         private set
 
+    var characterState by mutableStateOf(null as Character?)
+        private set
+
     var resourcesState by mutableStateOf(null as Resources?)
         private set
 

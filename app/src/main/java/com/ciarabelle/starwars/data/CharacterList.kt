@@ -5,4 +5,5 @@ data class CharacterList(
     val next: String?,
     val previous: String?,
     val results: List<Character>? = listOf(),
+    val loading: Boolean = false,
 )

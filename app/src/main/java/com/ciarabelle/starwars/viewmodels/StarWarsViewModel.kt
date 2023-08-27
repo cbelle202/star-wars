@@ -3,10 +3,9 @@ package com.ciarabelle.starwars.viewmodels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.CharacterList
 import com.ciarabelle.starwars.data.FilmList
 import com.ciarabelle.starwars.data.PlanetList
@@ -24,13 +23,13 @@ class StarWarsViewModel @Inject constructor(
     private val repository: StarWarsRepository,
 ) : ViewModel() {
 
+    var characterListState by mutableStateOf(null as CharacterList?)
+        private set
+
     var resourcesState by mutableStateOf(null as Resources?)
         private set
 
     var filmListState by mutableStateOf(null as FilmList?)
-        private set
-
-    var characterListState by mutableStateOf(null as CharacterList?)
         private set
 
     var planetListState by mutableStateOf(null as PlanetList?)
@@ -48,15 +47,25 @@ class StarWarsViewModel @Inject constructor(
     fun getCharacterList() {
         println("aaa----charlist---$characterListState")
         viewModelScope.launch {
-            characterListState?.let { list ->
-                list.next?.let { nextUrl ->
-                    if (nextUrl.toLowerCase(Locale.current) == "null") return@launch
-                    val characterList = repository.getCharacterList(nextUrl)
-                    characterListState = characterList
-                }
-            } ?: run {
-                characterListState = repository.getCharacterList()
-            }
+            characterListState?.let { currList ->
+                val nextUrl = currList.next
+                if (currList.loading || nextUrl == null) return@launch
+                characterListState = getNextPage(currList, nextUrl)
+            } ?: run { characterListState = repository.getCharacterList() }
         }
+    }
+
+    private suspend fun getNextPage(
+        currList: CharacterList,
+        nextUrl: String,
+    ): CharacterList? {
+        characterListState = currList.copy(loading = true)
+        val characterList = repository.getCharacterList(nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (characterList?.results ?: listOf())
+        return characterList?.copy(
+            results = updatedList,
+            loading = false,
+        )
     }
 }

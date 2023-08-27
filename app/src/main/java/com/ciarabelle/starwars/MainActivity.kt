@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.ROOT
-import com.ciarabelle.starwars.navigation.navigateToRoot
 import com.ciarabelle.starwars.screens.CharactersScreen
 import com.ciarabelle.starwars.screens.ResourcesScreen
 import com.ciarabelle.starwars.ui.theme.StarWarsTheme
@@ -42,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(CHARACTERS) {
                             CharactersScreen(
-                                list = viewModel.characterListState?.results,
+                                list = viewModel.characterListState,
                                 onGetList = viewModel::getCharacterList,
                             )
                         }

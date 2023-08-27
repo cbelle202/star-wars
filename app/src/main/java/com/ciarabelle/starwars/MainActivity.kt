@@ -29,11 +29,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            StarWarsTheme {
+            StarWarsTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     val viewModel = ViewModelProvider(this)[StarWarsViewModel::class.java]
                     val navController = rememberNavController()
@@ -45,10 +45,16 @@ class MainActivity : ComponentActivity() {
                             CharacterListScreen(
                                 list = viewModel.characterListState,
                                 onGetList = viewModel::getCharacterList,
+                                onCharacterDetail = {
+                                    viewModel.setCharacter(it)
+                                    navController.navigate(CHARACTER_DETAILS)
+                                },
                             )
                         }
                         composable(CHARACTER_DETAILS) {
-                            CharacterDetailsScreen()
+                            CharacterDetailsScreen(
+                                character = viewModel.characterState,
+                            )
                         }
                     }
                 }

@@ -20,7 +20,7 @@ class StarWarsRepository @Inject constructor(
         val match = "page="
         return nextUrl?.let {
             val index = it.indexOf(match) + match.length
-            it.substring(IntRange(index, index))
+            it.substring(IntRange(index, it.length - 1))
         }
     }
 

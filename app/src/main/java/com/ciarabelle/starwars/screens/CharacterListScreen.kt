@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import com.ciarabelle.starwars.components.LazyColumnComponent
 import com.ciarabelle.starwars.components.ListItemComponent
 import com.ciarabelle.starwars.components.LoadingIndicatorComponent
+import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.CharacterList
 
 @Composable
@@ -17,13 +18,17 @@ fun CharacterListScreen(
     modifier: Modifier = Modifier,
     list: CharacterList?,
     onGetList: () -> Unit,
+    onCharacterDetail: (Character) -> Unit,
 ) {
     Column {
         Text("Character List", color = Color.White)
         LazyColumnComponent(modifier = modifier) {
             list?.results?.let {
                 items(it) { char ->
-                    ListItemComponent(text = char.name ?: "No value", onAction = {})
+                    ListItemComponent(
+                        text = char.name ?: "No value",
+                        onAction = {onCharacterDetail(char)},
+                    )
                 }
             }
             item {

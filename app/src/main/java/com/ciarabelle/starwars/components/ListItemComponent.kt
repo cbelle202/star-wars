@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,13 +24,12 @@ fun ListItemComponent(
     Column {
         Text(
             modifier = modifier
-                .background(Color.White.copy(alpha = .4f))
                 .fillMaxWidth()
                 .clickable { onAction() }
                 .padding(all = 16.dp),
             text = text,
             fontSize = 22.sp,
         )
-        Divider(thickness = Dp.Hairline, color = Color.Black)
+        Divider(thickness = Dp.Hairline, color = MaterialTheme.colorScheme.primary)
     }
 }

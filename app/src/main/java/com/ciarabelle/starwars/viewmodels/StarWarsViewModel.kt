@@ -58,6 +58,10 @@ class StarWarsViewModel @Inject constructor(
         }
     }
 
+    fun setCharacter(character: Character?) {
+        characterState = character
+    }
+
     private suspend fun getNextPage(
         currList: CharacterList,
         nextUrl: String,

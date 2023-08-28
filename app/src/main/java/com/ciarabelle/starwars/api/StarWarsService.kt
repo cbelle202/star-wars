@@ -16,7 +16,7 @@ interface StarWarsService {
     suspend fun getCharacterList(@Query("page") page: String? = null): Response<CharacterList>
 
     @GET("/api/films")
-    suspend fun getFilmList(): Response<FilmList>
+    suspend fun getFilmList(@Query("page") page: String? = null): Response<FilmList>
 
     @GET("/api/planets")
     suspend fun getPlanetList(): Response<PlanetList>

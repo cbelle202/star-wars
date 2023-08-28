@@ -9,16 +9,16 @@ class StarWarsRepository @Inject constructor(
     private var charMap = mutableMapOf<String, Character>()
     private var filmMap = mutableMapOf<String, Film>()
 
-    suspend fun getCharacterList(nextUrl: String? = null): CharacterList? {
+    suspend fun getCharacterList(nextUrl: String? = null): CharacterList {
         val page = parsePageFromUrl(nextUrl)
         println("aaa----page-- $page")
         val characterList = service.getCharacterList(page).body()
-        characterList?.results?.let { list ->
+        /*characterList?.results?.let { list ->
             list.forEach { char ->
                 char.url?.let { charMap[it] = char }
             }
-        }
-        return characterList
+        }*/
+        return characterList ?: CharacterList()
     }
 
     private fun parsePageFromUrl(nextUrl: String?): String? {
@@ -29,7 +29,14 @@ class StarWarsRepository @Inject constructor(
         }
     }
 
-    suspend fun getFilmList(): FilmList? {
-        return service.getFilmList().body()
+    suspend fun getFilmList(nextUrl: String? = null): FilmList {
+        val page = parsePageFromUrl(nextUrl)
+        val filmList = service.getFilmList(page).body()
+        /*characterList?.results?.let { list ->
+            list.forEach { char ->
+                char.url?.let { charMap[it] = char }
+            }
+        }*/
+        return filmList ?: FilmList()
     }
 }

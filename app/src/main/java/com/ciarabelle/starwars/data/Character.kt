@@ -1,10 +1,10 @@
 package com.ciarabelle.starwars.data
 
 data class CharacterList(
-    val count: Int?,
-    val next: String?,
-    val previous: String?,
-    override val results: List<Character>?,
+    val count: Int? = null,
+    val next: String? = null,
+    val previous: String? = null,
+    override val results: List<Character>? = null,
     override val loading: Boolean = false,
 ) : ResourceList()
 

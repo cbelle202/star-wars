@@ -8,7 +8,6 @@ class StarWarsRepository @Inject constructor(
 ) {
     suspend fun getCharacterList(nextUrl: String? = null): CharacterList {
         val page = parsePageFromUrl(nextUrl)
-        println("aaa----page-- $page")
         val characterList = service.getCharacterList(page).body()
         return characterList ?: CharacterList()
     }

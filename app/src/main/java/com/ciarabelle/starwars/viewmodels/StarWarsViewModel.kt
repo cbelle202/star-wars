@@ -52,7 +52,6 @@ class StarWarsViewModel @Inject constructor(
     }
 
     private fun getCharacterList() {
-        println("aaa----charlist---$characterListState")
         viewModelScope.launch {
             characterListState = characterListState.count?.let {
                 val nextUrl = characterListState.next
@@ -62,12 +61,13 @@ class StarWarsViewModel @Inject constructor(
             } ?: run {
                 repository.getCharacterList()
             }
-            resourceListState = characterListState
+            if (resourceListState is CharacterList) {
+                resourceListState = characterListState
+            }
         }
     }
 
     private fun getFilmList() {
-        println("aaa----filmlist---$filmListState")
         viewModelScope.launch {
             filmListState = filmListState.count?.let {
                 val nextUrl = filmListState.next
@@ -77,12 +77,13 @@ class StarWarsViewModel @Inject constructor(
             } ?: run {
                 repository.getFilmList()
             }
-            resourceListState = filmListState
+            if (resourceListState is FilmList) {
+                resourceListState = filmListState
+            }
         }
     }
 
     private fun getPlanetList() {
-        println("aaa----planetlist---$planetListState")
         viewModelScope.launch {
             planetListState = planetListState.count?.let {
                 val nextUrl = planetListState.next
@@ -92,7 +93,9 @@ class StarWarsViewModel @Inject constructor(
             } ?: run {
                 repository.getPlanetList()
             }
-            resourceListState = planetListState
+            if (resourceListState is PlanetList) {
+                resourceListState = planetListState
+            }
         }
     }
 }

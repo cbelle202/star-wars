@@ -39,17 +39,33 @@ class StarWarsViewModel @Inject constructor(
                 getCharacterList()
             }
         }
-        /*println("aaa----filmlist---$filmListState")
+        /*
+        println("aaa----filmlist---$filmListState")
         viewModelScope.launch {
             resourceListState.count?.let {
                 val nextUrl = resourceListState.next
-                if (filmListState.loading || nextUrl == null) return@launch
-                filmListState = getNextFilmPage(filmListState, nextUrl)
+                if (resourceListState.loading || nextUrl == null) return@launch
+                resourceListState = getNextResourcePage(resourceListState, nextUrl)
             } ?: run {
-                filmListState = repository.getFilmList()
+                resourceListState = repository.getResourceList(resourceListState)
             }
             resourceListState = filmListState
         }*/
+    }
+
+    private suspend fun getNextResourcePage(
+        currList: ResourceList,
+        nextUrl: String,
+    ): ResourceList {
+        resourceListState = currList.createCopy(loading = true)
+        resourceListState = characterListState
+        val resourceList = repository.getResourceList(resourceListState, nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (resourceList.results ?: listOf())
+        return resourceList.createCopy(
+            results = updatedList,
+            loading = false,
+        )
     }
 
     fun setResourceList(type: String) {

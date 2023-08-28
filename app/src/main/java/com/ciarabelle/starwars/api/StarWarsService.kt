@@ -22,11 +22,11 @@ interface StarWarsService {
     suspend fun getPlanetList(@Query("page") page: String? = null): Response<PlanetList>
 
     @GET("/api/species")
-    suspend fun getSpeciesList(): Response<SpeciesList>
+    suspend fun getSpeciesList(@Query("page") page: String? = null): Response<SpeciesList>
 
     @GET("/api/starships")
-    suspend fun getStarShipList(): Response<StarshipList>
+    suspend fun getStarShipList(@Query("page") page: String? = null): Response<StarshipList>
 
     @GET("/api/vehicles")
-    suspend fun getVehicleList(): Response<VehicleList>
+    suspend fun getVehicleList(@Query("page") page: String? = null): Response<VehicleList>
 }

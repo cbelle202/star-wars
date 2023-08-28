@@ -9,10 +9,14 @@ import com.ciarabelle.starwars.data.CharacterList
 import com.ciarabelle.starwars.data.FilmList
 import com.ciarabelle.starwars.data.PlanetList
 import com.ciarabelle.starwars.data.ResourceList
+import com.ciarabelle.starwars.data.SpeciesList
 import com.ciarabelle.starwars.data.StarWarsRepository
+import com.ciarabelle.starwars.data.StarshipList
+import com.ciarabelle.starwars.data.VehicleList
 import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.FILMS
 import com.ciarabelle.starwars.navigation.PLANETS
+import com.ciarabelle.starwars.navigation.SPECIES
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +28,9 @@ class StarWarsViewModel @Inject constructor(
     private var characterListState by mutableStateOf(CharacterList())
     private var filmListState by mutableStateOf(FilmList())
     private var planetListState by mutableStateOf(PlanetList())
+    private var speciesListState by mutableStateOf(SpeciesList())
+    private var starshipListState by mutableStateOf(StarshipList())
+    private var vehicleListState by mutableStateOf(VehicleList())
 
     var resourceListState by mutableStateOf(ResourceList())
         private set
@@ -35,6 +42,7 @@ class StarWarsViewModel @Inject constructor(
             is FilmList -> getFilmList()
             is CharacterList -> getCharacterList()
             is PlanetList -> getPlanetList()
+            is SpeciesList -> getSpeciesList()
         }
     }
 
@@ -43,6 +51,7 @@ class StarWarsViewModel @Inject constructor(
             CHARACTERS -> characterListState
             FILMS -> filmListState
             PLANETS -> planetListState
+            SPECIES -> speciesListState
             else -> ResourceList()
         }
     }
@@ -95,6 +104,22 @@ class StarWarsViewModel @Inject constructor(
             }
             if (resourceListState is PlanetList) {
                 resourceListState = planetListState
+            }
+        }
+    }
+
+    private fun getSpeciesList() {
+        viewModelScope.launch {
+            speciesListState = speciesListState.count?.let {
+                val nextUrl = planetListState.next
+                if (speciesListState.loading || nextUrl == null) return@launch
+                resourceListState = speciesListState.copy(loading = true)
+                repository.getNextSpeciesPage(speciesListState, nextUrl)
+            } ?: run {
+                repository.getSpeciesList()
+            }
+            if (resourceListState is SpeciesList) {
+                resourceListState = speciesListState
             }
         }
     }

@@ -27,18 +27,18 @@ class StarWarsRepository @Inject constructor(
 
     suspend fun getFilmList(nextUrl: String? = null): FilmList {
         val page = parsePageFromUrl(nextUrl)
-        val filmList = service.getFilmList(page).body()
-        return filmList ?: FilmList()
+        val list = service.getFilmList(page).body()
+        return list ?: FilmList()
     }
 
     suspend fun getNextFilmPage(
         currList: FilmList,
         nextUrl: String,
     ): FilmList {
-        val filmList = getFilmList(nextUrl)
+        val nextList = getFilmList(nextUrl)
         val updatedList =
-            (currList.results ?: listOf()) + (filmList.results ?: listOf())
-        return filmList.copy(
+            (currList.results ?: listOf()) + (nextList.results ?: listOf())
+        return nextList.copy(
             results = updatedList,
             loading = false,
         )
@@ -46,18 +46,75 @@ class StarWarsRepository @Inject constructor(
 
     suspend fun getPlanetList(nextUrl: String? = null): PlanetList {
         val page = parsePageFromUrl(nextUrl)
-        val planetList = service.getPlanetList(page).body()
-        return planetList ?: PlanetList()
+        val list = service.getPlanetList(page).body()
+        return list ?: PlanetList()
     }
 
     suspend fun getNextPlanetPage(
         currList: PlanetList,
         nextUrl: String,
     ): PlanetList {
-        val planetList = getPlanetList(nextUrl)
+        val nextList = getPlanetList(nextUrl)
         val updatedList =
-            (currList.results ?: listOf()) + (planetList.results ?: listOf())
-        return planetList.copy(
+            (currList.results ?: listOf()) + (nextList.results ?: listOf())
+        return nextList.copy(
+            results = updatedList,
+            loading = false,
+        )
+    }
+
+    suspend fun getSpeciesList(nextUrl: String? = null): SpeciesList {
+        val page = parsePageFromUrl(nextUrl)
+        val list = service.getSpeciesList(page).body()
+        return list ?: SpeciesList()
+    }
+
+    suspend fun getNextSpeciesPage(
+        currList: SpeciesList,
+        nextUrl: String,
+    ): SpeciesList {
+        val nextList = getSpeciesList(nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (nextList.results ?: listOf())
+        return nextList.copy(
+            results = updatedList,
+            loading = false,
+        )
+    }
+
+    suspend fun getStarshipList(nextUrl: String? = null): StarshipList {
+        val page = parsePageFromUrl(nextUrl)
+        val list = service.getStarShipList(page).body()
+        return list ?: StarshipList()
+    }
+
+    suspend fun getNextStarshipPage(
+        currList: StarshipList,
+        nextUrl: String,
+    ): StarshipList {
+        val nextList = getStarshipList(nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (nextList.results ?: listOf())
+        return nextList.copy(
+            results = updatedList,
+            loading = false,
+        )
+    }
+
+    suspend fun getVehicleList(nextUrl: String? = null): VehicleList {
+        val page = parsePageFromUrl(nextUrl)
+        val list = service.getVehicleList(page).body()
+        return list ?: VehicleList()
+    }
+
+    suspend fun getNextVehiclePage(
+        currList: VehicleList,
+        nextUrl: String,
+    ): VehicleList {
+        val nextList = getVehicleList(nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (nextList.results ?: listOf())
+        return nextList.copy(
             results = updatedList,
             loading = false,
         )

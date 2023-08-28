@@ -1,27 +1,42 @@
 package com.ciarabelle.starwars.data
 
 data class VehicleList(
-    val count: Int,
-    val next: String,
-    val previous: Any,
-    val results: List<Vehicle>
-)
+    override val count: Int? = null,
+    override val next: String? = null,
+    override val previous: String? = null,
+    override val results: List<Vehicle>? = null,
+    override val loading: Boolean = false,
+) : ResourceList() {
+    override fun createCopy(
+        count: Int?,
+        next: String?,
+        previous: String?,
+        results: List<Any>?,
+        loading: Boolean?,
+    ): ResourceList = this.copy(
+        count = count,
+        next = next,
+        previous = previous,
+        results = results as List<Vehicle>?,
+        loading = loading ?: false,
+    )
+}
 
 data class Vehicle(
-    val cargo_capacity: String,
-    val consumables: String,
-    val cost_in_credits: String,
-    val created: String,
-    val crew: String,
-    val edited: String,
-    val films: List<String>,
-    val length: String,
-    val manufacturer: String,
-    val max_atmosphering_speed: String,
-    val model: String,
-    val name: String,
-    val passengers: String,
-    val pilots: List<String>,
-    val url: String,
-    val vehicle_class: String
+    val cargo_capacity: String?,
+    val consumables: String?,
+    val cost_in_credits: String?,
+    val created: String?,
+    val crew: String?,
+    val edited: String?,
+    val films: List<String>?,
+    val length: String?,
+    val manufacturer: String?,
+    val max_atmosphering_speed: String?,
+    val model: String?,
+    val name: String?,
+    val passengers: String?,
+    val pilots: List<String>?,
+    val url: String?,
+    val vehicle_class: String?,
 )

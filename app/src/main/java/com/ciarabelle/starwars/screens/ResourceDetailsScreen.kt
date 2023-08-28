@@ -14,6 +14,7 @@ import com.ciarabelle.starwars.components.TitleComponent
 import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.Film
 import com.ciarabelle.starwars.data.Planet
+import com.ciarabelle.starwars.data.Species
 import com.ciarabelle.starwars.utils.ImageUtils
 import com.ciarabelle.starwars.utils.StringUtils
 import kotlin.reflect.KProperty1
@@ -64,5 +65,6 @@ private fun getMemberProperties(any: Any?): Collection<KProperty1<Any, *>>? =
         is Character -> Character::class.memberProperties as Collection<KProperty1<Any, *>>
         is Film -> Film::class.memberProperties as Collection<KProperty1<Any, *>>
         is Planet -> Planet::class.memberProperties as Collection<KProperty1<Any, *>>
+        is Species -> Species::class.memberProperties as Collection<KProperty1<Any, *>>
         else -> null
     }

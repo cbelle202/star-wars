@@ -7,28 +7,38 @@ class StarWarsRepository @Inject constructor(
     private val service: StarWarsService,
 ) {
     suspend fun getCharacterList(nextUrl: String? = null): CharacterList {
-        val page = parsePageFromUrl(nextUrl)
-        val characterList = service.getCharacterList(page).body()
-        return characterList ?: CharacterList()
+        var list = CharacterList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getCharacterList(page).body() ?: CharacterList()
+        } catch (e: Exception) {
+            println("failed to get characters $e")
+        }
+        return list
     }
 
     suspend fun getNextCharacterPage(
         currList: CharacterList,
         nextUrl: String,
     ): CharacterList {
-        val characterList = getCharacterList(nextUrl)
+        val newList = getCharacterList(nextUrl)
         val updatedList =
-            (currList.results ?: listOf()) + (characterList.results ?: listOf())
-        return characterList.copy(
+            (currList.results ?: listOf()) + (newList.results ?: listOf())
+        return newList.copy(
             results = updatedList,
             loading = false,
         )
     }
 
     suspend fun getFilmList(nextUrl: String? = null): FilmList {
-        val page = parsePageFromUrl(nextUrl)
-        val list = service.getFilmList(page).body()
-        return list ?: FilmList()
+        var list = FilmList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getFilmList(page).body() ?: FilmList()
+        } catch (e: Exception) {
+            println("failed to get films $e")
+        }
+        return list
     }
 
     suspend fun getNextFilmPage(
@@ -45,9 +55,14 @@ class StarWarsRepository @Inject constructor(
     }
 
     suspend fun getPlanetList(nextUrl: String? = null): PlanetList {
-        val page = parsePageFromUrl(nextUrl)
-        val list = service.getPlanetList(page).body()
-        return list ?: PlanetList()
+        var list = PlanetList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getPlanetList(page).body() ?: PlanetList()
+        } catch (e: Exception) {
+            println("failed to get planets $e")
+        }
+        return list
     }
 
     suspend fun getNextPlanetPage(
@@ -64,9 +79,14 @@ class StarWarsRepository @Inject constructor(
     }
 
     suspend fun getSpeciesList(nextUrl: String? = null): SpeciesList {
-        val page = parsePageFromUrl(nextUrl)
-        val list = service.getSpeciesList(page).body()
-        return list ?: SpeciesList()
+        var list = SpeciesList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getSpeciesList(page).body() ?: SpeciesList()
+        } catch (e: Exception) {
+            println("failed to get species $e")
+        }
+        return list
     }
 
     suspend fun getNextSpeciesPage(
@@ -83,9 +103,14 @@ class StarWarsRepository @Inject constructor(
     }
 
     suspend fun getStarshipList(nextUrl: String? = null): StarshipList {
-        val page = parsePageFromUrl(nextUrl)
-        val list = service.getStarShipList(page).body()
-        return list ?: StarshipList()
+        var list = StarshipList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getStarShipList(page).body() ?: StarshipList()
+        } catch (e: Exception) {
+            println("failed to get starships $e")
+        }
+        return list
     }
 
     suspend fun getNextStarshipPage(
@@ -102,9 +127,14 @@ class StarWarsRepository @Inject constructor(
     }
 
     suspend fun getVehicleList(nextUrl: String? = null): VehicleList {
-        val page = parsePageFromUrl(nextUrl)
-        val list = service.getVehicleList(page).body()
-        return list ?: VehicleList()
+        var list = VehicleList()
+        try {
+            val page = parsePageFromUrl(nextUrl)
+            list = service.getVehicleList(page).body() ?: VehicleList()
+        } catch (e: Exception) {
+            println("failed to get vehicles $e")
+        }
+        return list
     }
 
     suspend fun getNextVehiclePage(

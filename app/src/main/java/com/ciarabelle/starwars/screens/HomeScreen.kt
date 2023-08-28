@@ -9,6 +9,8 @@ import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.FILMS
 import com.ciarabelle.starwars.navigation.PLANETS
 import com.ciarabelle.starwars.navigation.SPECIES
+import com.ciarabelle.starwars.navigation.STARSHIPS
+import com.ciarabelle.starwars.navigation.VEHICLES
 
 @Composable
 fun HomeScreen(
@@ -20,6 +22,8 @@ fun HomeScreen(
         FILMS,
         PLANETS,
         SPECIES,
+        STARSHIPS,
+        VEHICLES,
     )
     LazyColumnComponent(modifier = modifier) {
         items(list) { item ->

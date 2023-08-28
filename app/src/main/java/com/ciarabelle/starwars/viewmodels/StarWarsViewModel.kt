@@ -17,6 +17,8 @@ import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.FILMS
 import com.ciarabelle.starwars.navigation.PLANETS
 import com.ciarabelle.starwars.navigation.SPECIES
+import com.ciarabelle.starwars.navigation.STARSHIPS
+import com.ciarabelle.starwars.navigation.VEHICLES
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,6 +45,8 @@ class StarWarsViewModel @Inject constructor(
             is CharacterList -> getCharacterList()
             is PlanetList -> getPlanetList()
             is SpeciesList -> getSpeciesList()
+            is StarshipList -> getStarshipList()
+            is VehicleList -> getVehicleList()
         }
     }
 
@@ -52,6 +56,8 @@ class StarWarsViewModel @Inject constructor(
             FILMS -> filmListState
             PLANETS -> planetListState
             SPECIES -> speciesListState
+            STARSHIPS -> starshipListState
+            VEHICLES -> vehicleListState
             else -> ResourceList()
         }
     }
@@ -111,7 +117,7 @@ class StarWarsViewModel @Inject constructor(
     private fun getSpeciesList() {
         viewModelScope.launch {
             speciesListState = speciesListState.count?.let {
-                val nextUrl = planetListState.next
+                val nextUrl = speciesListState.next
                 if (speciesListState.loading || nextUrl == null) return@launch
                 resourceListState = speciesListState.copy(loading = true)
                 repository.getNextSpeciesPage(speciesListState, nextUrl)
@@ -120,6 +126,38 @@ class StarWarsViewModel @Inject constructor(
             }
             if (resourceListState is SpeciesList) {
                 resourceListState = speciesListState
+            }
+        }
+    }
+
+    private fun getStarshipList() {
+        viewModelScope.launch {
+            starshipListState = starshipListState.count?.let {
+                val nextUrl = starshipListState.next
+                if (starshipListState.loading || nextUrl == null) return@launch
+                resourceListState = starshipListState.copy(loading = true)
+                repository.getNextStarshipPage(starshipListState, nextUrl)
+            } ?: run {
+                repository.getStarshipList()
+            }
+            if (resourceListState is StarshipList) {
+                resourceListState = starshipListState
+            }
+        }
+    }
+
+    private fun getVehicleList() {
+        viewModelScope.launch {
+            vehicleListState = vehicleListState.count?.let {
+                val nextUrl = vehicleListState.next
+                if (vehicleListState.loading || nextUrl == null) return@launch
+                resourceListState = vehicleListState.copy(loading = true)
+                repository.getNextVehiclePage(vehicleListState, nextUrl)
+            } ?: run {
+                repository.getVehicleList()
+            }
+            if (resourceListState is VehicleList) {
+                resourceListState = vehicleListState
             }
         }
     }

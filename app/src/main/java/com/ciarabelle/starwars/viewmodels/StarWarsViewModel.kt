@@ -32,115 +32,50 @@ class StarWarsViewModel @Inject constructor(
 
     fun getResourceList() {
         when (resourceListState) {
-            is FilmList -> {
-                getFilmList()
-            }
-            is CharacterList -> {
-                getCharacterList()
-            }
+            is FilmList -> getFilmList()
+            is CharacterList -> getCharacterList()
         }
-        /*
-        println("aaa----filmlist---$filmListState")
-        viewModelScope.launch {
-            resourceListState.count?.let {
-                val nextUrl = resourceListState.next
-                if (resourceListState.loading || nextUrl == null) return@launch
-                resourceListState = getNextResourcePage(resourceListState, nextUrl)
-            } ?: run {
-                resourceListState = repository.getResourceList(resourceListState)
-            }
-            resourceListState = filmListState
-        }*/
-    }
-
-    private suspend fun getNextResourcePage(
-        currList: ResourceList,
-        nextUrl: String,
-    ): ResourceList {
-        resourceListState = currList.createCopy(loading = true)
-        resourceListState = characterListState
-        val resourceList = repository.getResourceList(resourceListState, nextUrl)
-        val updatedList =
-            (currList.results ?: listOf()) + (resourceList.results ?: listOf())
-        return resourceList.createCopy(
-            results = updatedList,
-            loading = false,
-        )
     }
 
     fun setResourceList(type: String) {
         resourceListState = when (type) {
-            CHARACTERS -> {
-                characterListState
-            }
-            FILMS -> {
-                filmListState
-            }
+            CHARACTERS -> characterListState
+            FILMS -> filmListState
             else -> ResourceList()
         }
-        println()
     }
 
     fun setResourceDetails(any: Any?) {
         resourceDetailsState = any
-        println()
     }
 
     private fun getCharacterList() {
         println("aaa----charlist---$characterListState")
         viewModelScope.launch {
-            characterListState.count?.let {
+            characterListState = characterListState.count?.let {
                 val nextUrl = characterListState.next
                 if (characterListState.loading || nextUrl == null) return@launch
-                characterListState = getNextCharacterPage(characterListState, nextUrl)
+                resourceListState = characterListState.copy(loading = true)
+                repository.getNextCharacterPage(characterListState, nextUrl)
             } ?: run {
-                characterListState = repository.getCharacterList()
+                repository.getCharacterList()
             }
             resourceListState = characterListState
         }
     }
 
-    private suspend fun getNextCharacterPage(
-        currList: CharacterList,
-        nextUrl: String,
-    ): CharacterList {
-        characterListState = currList.copy(loading = true)
-        resourceListState = characterListState
-        val characterList = repository.getCharacterList(nextUrl)
-        val updatedList =
-            (currList.results ?: listOf()) + (characterList.results ?: listOf())
-        return characterList.copy(
-            results = updatedList,
-            loading = false,
-        )
-    }
-
     private fun getFilmList() {
         println("aaa----filmlist---$filmListState")
         viewModelScope.launch {
-            filmListState.count?.let {
+            filmListState = filmListState.count?.let {
                 val nextUrl = filmListState.next
                 if (filmListState.loading || nextUrl == null) return@launch
-                filmListState = getNextFilmPage(filmListState, nextUrl)
+                resourceListState = characterListState.copy(loading = true)
+                repository.getNextFilmPage(filmListState, nextUrl)
             } ?: run {
-                filmListState = repository.getFilmList()
+                repository.getFilmList()
             }
             resourceListState = filmListState
         }
-    }
-
-    private suspend fun getNextFilmPage(
-        currList: FilmList,
-        nextUrl: String,
-    ): FilmList {
-        filmListState = currList.copy(loading = true)
-        resourceListState = filmListState
-        val filmList = repository.getFilmList(nextUrl)
-        val updatedList =
-            (currList.results ?: listOf()) + (filmList.results ?: listOf())
-        return filmList.copy(
-            results = updatedList,
-            loading = false,
-        )
     }
 }

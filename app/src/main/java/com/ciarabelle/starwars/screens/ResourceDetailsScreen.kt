@@ -15,7 +15,7 @@ import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.Film
 import com.ciarabelle.starwars.data.Planet
 import com.ciarabelle.starwars.utils.ImageUtils
-import com.ciarabelle.starwars.utils.getTitle
+import com.ciarabelle.starwars.utils.StringUtils
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 
@@ -40,7 +40,7 @@ fun ResourceDetailsScreen(any: Any?) {
 
 @Composable
 private fun PropertiesDisplay(any: Any, memberProperties: Collection<KProperty1<Any, *>>) {
-    val title = getTitle(any)
+    val title = StringUtils.getTitle(any)
     title?.let { TitleComponent(text = title) }
 
     val image = ImageUtils.getImage(title)

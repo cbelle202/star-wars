@@ -1,11 +1,26 @@
 package com.ciarabelle.starwars.data
 
 data class PlanetList(
-    val count: Int,
-    val next: String,
-    val previous: Any,
-    val results: List<Planet>
-)
+    override val count: Int? = null,
+    override val next: String? = null,
+    override val previous: String? = null,
+    override val results: List<Planet>? = null,
+    override val loading: Boolean = false,
+) : ResourceList() {
+    override fun createCopy(
+        count: Int?,
+        next: String?,
+        previous: String?,
+        results: List<Any>?,
+        loading: Boolean?,
+    ): ResourceList = this.copy(
+        count = count,
+        next = next,
+        previous = previous,
+        results = results as List<Planet>?,
+        loading = loading ?: false,
+    )
+}
 
 data class Planet(
     val climate: String,
@@ -21,5 +36,5 @@ data class Planet(
     val rotation_period: String,
     val surface_water: String,
     val terrain: String,
-    val url: String
+    val url: String,
 )

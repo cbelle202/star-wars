@@ -45,6 +45,25 @@ class StarWarsRepository @Inject constructor(
         )
     }
 
+    suspend fun getPlanetList(nextUrl: String? = null): PlanetList {
+        val page = parsePageFromUrl(nextUrl)
+        val planetList = service.getPlanetList(page).body()
+        return planetList ?: PlanetList()
+    }
+
+    suspend fun getNextPlanetPage(
+        currList: PlanetList,
+        nextUrl: String,
+    ): PlanetList {
+        val planetList = getPlanetList(nextUrl)
+        val updatedList =
+            (currList.results ?: listOf()) + (planetList.results ?: listOf())
+        return planetList.copy(
+            results = updatedList,
+            loading = false,
+        )
+    }
+
     private fun parsePageFromUrl(nextUrl: String?): String? {
         val match = "page="
         return nextUrl?.let {

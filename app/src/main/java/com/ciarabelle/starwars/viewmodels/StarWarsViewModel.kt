@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ciarabelle.starwars.data.CharacterList
 import com.ciarabelle.starwars.data.FilmList
+import com.ciarabelle.starwars.data.PlanetList
 import com.ciarabelle.starwars.data.ResourceList
 import com.ciarabelle.starwars.data.StarWarsRepository
 import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.FILMS
+import com.ciarabelle.starwars.navigation.PLANETS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,14 +21,12 @@ import javax.inject.Inject
 class StarWarsViewModel @Inject constructor(
     private val repository: StarWarsRepository,
 ) : ViewModel() {
-
     private var characterListState by mutableStateOf(CharacterList())
-
     private var filmListState by mutableStateOf(FilmList())
+    private var planetListState by mutableStateOf(PlanetList())
 
     var resourceListState by mutableStateOf(ResourceList())
         private set
-
     var resourceDetailsState by mutableStateOf(null as Any?)
         private set
 
@@ -34,6 +34,7 @@ class StarWarsViewModel @Inject constructor(
         when (resourceListState) {
             is FilmList -> getFilmList()
             is CharacterList -> getCharacterList()
+            is PlanetList -> getPlanetList()
         }
     }
 
@@ -41,6 +42,7 @@ class StarWarsViewModel @Inject constructor(
         resourceListState = when (type) {
             CHARACTERS -> characterListState
             FILMS -> filmListState
+            PLANETS -> planetListState
             else -> ResourceList()
         }
     }
@@ -70,12 +72,27 @@ class StarWarsViewModel @Inject constructor(
             filmListState = filmListState.count?.let {
                 val nextUrl = filmListState.next
                 if (filmListState.loading || nextUrl == null) return@launch
-                resourceListState = characterListState.copy(loading = true)
+                resourceListState = filmListState.copy(loading = true)
                 repository.getNextFilmPage(filmListState, nextUrl)
             } ?: run {
                 repository.getFilmList()
             }
             resourceListState = filmListState
+        }
+    }
+
+    private fun getPlanetList() {
+        println("aaa----planetlist---$planetListState")
+        viewModelScope.launch {
+            planetListState = planetListState.count?.let {
+                val nextUrl = planetListState.next
+                if (planetListState.loading || nextUrl == null) return@launch
+                resourceListState = planetListState.copy(loading = true)
+                repository.getNextPlanetPage(planetListState, nextUrl)
+            } ?: run {
+                repository.getPlanetList()
+            }
+            resourceListState = planetListState
         }
     }
 }

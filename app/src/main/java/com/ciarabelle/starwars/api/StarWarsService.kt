@@ -19,7 +19,7 @@ interface StarWarsService {
     suspend fun getFilmList(@Query("page") page: String? = null): Response<FilmList>
 
     @GET("/api/planets")
-    suspend fun getPlanetList(): Response<PlanetList>
+    suspend fun getPlanetList(@Query("page") page: String? = null): Response<PlanetList>
 
     @GET("/api/species")
     suspend fun getSpeciesList(): Response<SpeciesList>

@@ -7,6 +7,7 @@ import com.ciarabelle.starwars.components.LazyColumnComponent
 import com.ciarabelle.starwars.components.ListItemComponent
 import com.ciarabelle.starwars.navigation.CHARACTERS
 import com.ciarabelle.starwars.navigation.FILMS
+import com.ciarabelle.starwars.navigation.PLANETS
 
 @Composable
 fun HomeScreen(
@@ -16,6 +17,7 @@ fun HomeScreen(
     val list = listOf(
         CHARACTERS,
         FILMS,
+        PLANETS,
     )
     LazyColumnComponent(modifier = modifier) {
         items(list) { item ->

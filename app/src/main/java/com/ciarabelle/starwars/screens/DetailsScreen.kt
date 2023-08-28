@@ -2,10 +2,13 @@ package com.ciarabelle.starwars.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
 import com.ciarabelle.starwars.components.TitleComponent
 import com.ciarabelle.starwars.data.Character
 import com.ciarabelle.starwars.data.Film
@@ -14,7 +17,14 @@ import kotlin.reflect.full.memberProperties
 
 @Composable
 fun DetailsScreen(any: Any?) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(
+                state = rememberScrollState(),
+                enabled = true,
+            ),
+    ) {
         val memberProperties = when (any) {
             is Character -> Character::class.memberProperties as Collection<KProperty1<Any, *>>
             is Film -> Film::class.memberProperties as Collection<KProperty1<Any, *>>

@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ciarabelle.starwars.navigation.RESOURCE_LIST
 import com.ciarabelle.starwars.navigation.RESOURCE_DETAILS
+import com.ciarabelle.starwars.navigation.RESOURCE_LIST
 import com.ciarabelle.starwars.navigation.ROOT
-import com.ciarabelle.starwars.screens.ResourceListScreen
 import com.ciarabelle.starwars.screens.DetailsScreen
 import com.ciarabelle.starwars.screens.HomeScreen
+import com.ciarabelle.starwars.screens.ResourceListScreen
 import com.ciarabelle.starwars.ui.theme.StarWarsTheme
 import com.ciarabelle.starwars.viewmodels.StarWarsViewModel
 import dagger.hilt.android.AndroidEntryPoint

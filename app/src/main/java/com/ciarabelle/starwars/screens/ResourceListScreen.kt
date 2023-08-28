@@ -16,14 +16,14 @@ import com.ciarabelle.starwars.utils.getTitle
 @Composable
 fun ResourceListScreen(
     modifier: Modifier = Modifier,
-    list: ResourceList?,
+    list: ResourceList,
     onGetList: () -> Unit,
     onResourceDetail: (Any) -> Unit,
 ) {
     Column {
         Text("List---------- >_>", color = Color.White)
         LazyColumnComponent(modifier = modifier) {
-            list?.results?.let {
+            list.results?.let {
                 items(it) { item ->
                     ListItemComponent(
                         text = getTitle(item) ?: "No value",
@@ -37,7 +37,7 @@ fun ResourceListScreen(
         }
     }
 
-    if (list == null || list.loading) {
+    if (list.results == null || list.loading) {
         LoadingIndicatorComponent()
     }
 }

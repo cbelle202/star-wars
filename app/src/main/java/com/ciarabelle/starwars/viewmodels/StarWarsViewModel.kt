@@ -24,7 +24,7 @@ class StarWarsViewModel @Inject constructor(
 
     private var filmListState by mutableStateOf(FilmList())
 
-    var resourceListState by mutableStateOf(null as ResourceList?)
+    var resourceListState by mutableStateOf(ResourceList())
         private set
 
     var resourceDetailsState by mutableStateOf(null as Any?)
@@ -49,7 +49,7 @@ class StarWarsViewModel @Inject constructor(
             FILMS -> {
                 filmListState
             }
-            else -> null
+            else -> ResourceList()
         }
         println()
     }

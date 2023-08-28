@@ -39,6 +39,17 @@ class StarWarsViewModel @Inject constructor(
                 getCharacterList()
             }
         }
+        /*println("aaa----filmlist---$filmListState")
+        viewModelScope.launch {
+            resourceListState.count?.let {
+                val nextUrl = resourceListState.next
+                if (filmListState.loading || nextUrl == null) return@launch
+                filmListState = getNextFilmPage(filmListState, nextUrl)
+            } ?: run {
+                filmListState = repository.getFilmList()
+            }
+            resourceListState = filmListState
+        }*/
     }
 
     fun setResourceList(type: String) {

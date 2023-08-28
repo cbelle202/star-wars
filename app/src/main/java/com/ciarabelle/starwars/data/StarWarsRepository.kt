@@ -9,6 +9,17 @@ class StarWarsRepository @Inject constructor(
     private var charMap = mutableMapOf<String, Character>()
     private var filmMap = mutableMapOf<String, Film>()
 
+    suspend fun getResourceList(
+        resourceList: ResourceList,
+        nextUrl: String? = null,
+    ): ResourceList {
+        when (resourceList) {
+            is CharacterList -> getCharacterList(nextUrl)
+            is FilmList -> getFilmList(nextUrl)
+        }
+        return ResourceList()
+    }
+
     suspend fun getCharacterList(nextUrl: String? = null): CharacterList {
         val page = parsePageFromUrl(nextUrl)
         println("aaa----page-- $page")

@@ -75,10 +75,11 @@ dependencies {
     annotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    // retrofit and moshi
+    // retrofit, moshi, okhttp3
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.6.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.15.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
 
     // coil
     implementation("io.coil-kt:coil-compose:2.4.0")

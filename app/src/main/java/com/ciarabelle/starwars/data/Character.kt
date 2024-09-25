@@ -6,22 +6,7 @@ data class CharacterList(
     override val previous: String? = null,
     override val results: List<Character>? = null,
     override val loading: Boolean = false,
-) : ResourceList() {
-
-    override fun createCopy(
-        count: Int?,
-        next: String?,
-        previous: String?,
-        results: List<Any>?,
-        loading: Boolean?,
-    ): ResourceList = this.copy(
-        count = count,
-        next = next,
-        previous = previous,
-        results = results as List<Character>?,
-        loading = loading ?: false,
-    )
-}
+) : ResourceList()
 
 data class Character(
     val birth_year: String?,

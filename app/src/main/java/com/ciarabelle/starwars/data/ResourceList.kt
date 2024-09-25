@@ -6,12 +6,4 @@ open class ResourceList(
     open val previous: String? = null,
     open val results: List<Any>? = null,
     open val loading: Boolean = false,
-) {
-    open fun createCopy(
-        count: Int? = null,
-        next: String? = null,
-        previous: String? = null,
-        results: List<Any>? = null,
-        loading: Boolean? = null,
-    ): ResourceList = ResourceList()
-}
+)

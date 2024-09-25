@@ -6,21 +6,7 @@ data class VehicleList(
     override val previous: String? = null,
     override val results: List<Vehicle>? = null,
     override val loading: Boolean = false,
-) : ResourceList() {
-    override fun createCopy(
-        count: Int?,
-        next: String?,
-        previous: String?,
-        results: List<Any>?,
-        loading: Boolean?,
-    ): ResourceList = this.copy(
-        count = count,
-        next = next,
-        previous = previous,
-        results = results as List<Vehicle>?,
-        loading = loading ?: false,
-    )
-}
+) : ResourceList()
 
 data class Vehicle(
     val cargo_capacity: String?,

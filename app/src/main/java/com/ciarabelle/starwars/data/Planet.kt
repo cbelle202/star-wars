@@ -6,21 +6,7 @@ data class PlanetList(
     override val previous: String? = null,
     override val results: List<Planet>? = null,
     override val loading: Boolean = false,
-) : ResourceList() {
-    override fun createCopy(
-        count: Int?,
-        next: String?,
-        previous: String?,
-        results: List<Any>?,
-        loading: Boolean?,
-    ): ResourceList = this.copy(
-        count = count,
-        next = next,
-        previous = previous,
-        results = results as List<Planet>?,
-        loading = loading ?: false,
-    )
-}
+) : ResourceList()
 
 data class Planet(
     val climate: String?,

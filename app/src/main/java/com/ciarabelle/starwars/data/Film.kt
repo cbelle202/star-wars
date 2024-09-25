@@ -6,22 +6,7 @@ data class FilmList(
     override val previous: String? = null,
     override val results: List<Film>? = null,
     override val loading: Boolean = false,
-) : ResourceList() {
-
-    override fun createCopy(
-        count: Int?,
-        next: String?,
-        previous: String?,
-        results: List<Any>?,
-        loading: Boolean?,
-    ): ResourceList = this.copy(
-        count = count,
-        next = next,
-        previous = previous,
-        results = results as List<Film>?,
-        loading = loading ?: false,
-    )
-}
+) : ResourceList()
 
 data class Film(
     val characters: List<String>?,

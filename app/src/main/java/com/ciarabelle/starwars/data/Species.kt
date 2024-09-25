@@ -6,21 +6,7 @@ data class SpeciesList(
     override val previous: String? = null,
     override val results: List<Species>? = null,
     override val loading: Boolean = false,
-) : ResourceList() {
-    override fun createCopy(
-        count: Int?,
-        next: String?,
-        previous: String?,
-        results: List<Any>?,
-        loading: Boolean?,
-    ): ResourceList = this.copy(
-        count = count,
-        next = next,
-        previous = previous,
-        results = results as List<Species>?,
-        loading = loading ?: false,
-    )
-}
+) : ResourceList()
 
 data class Species(
     val average_height: String?,
@@ -37,5 +23,5 @@ data class Species(
     val name: String?,
     val people: List<String>?,
     val skin_colors: String?,
-    val url: String?
+    val url: String?,
 )
